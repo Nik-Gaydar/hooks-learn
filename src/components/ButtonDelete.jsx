@@ -1,6 +1,9 @@
-const ButtonDelete = () => {
+const ButtonDelete = ({taskDelete, id}) => {
   return (
-    <button className="button">
+    <button
+      className="button"
+      onClick={() => taskDelete(id)}
+    >
       удалить
     </button>
   )

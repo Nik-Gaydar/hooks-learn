@@ -4,9 +4,10 @@ import Timer from './components/Timer'
 import Input from "./components/Input.jsx";
 
 const TaskManager = () => {
-  const [tasks, setTasks] = useState([])
-
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('task')
+    return savedTasks ? JSON.parse(savedTasks) : []
+  })
 
   const [query, setQuery] = useState('')
 
@@ -22,6 +23,16 @@ const TaskManager = () => {
     }
 
     setTasks([...tasks, newTask])
+    setQuery('')
+  }
+
+  //Удаляем задачу
+  const handleDeleteTask = (id) => {
+    const newTasks = tasks.filter((task) => {
+      return task.id !== id
+    })
+
+    setTasks(newTasks)
   }
 
   // Добавляем задачи в localStorage
@@ -29,9 +40,10 @@ const TaskManager = () => {
     localStorage.setItem('task', JSON.stringify(tasks))
   },[tasks])
 
+  //Изменение title документа
   useEffect(() => {
-    localStorage.getItem(tasks)
-  },[])
+    document.title = `Задач: ${tasks.length}`
+  }, [tasks]);
 
   return (
     <div>
@@ -43,6 +55,7 @@ const TaskManager = () => {
       />
       <TasksList
         tasks={tasks}
+        taskDelete={handleDeleteTask}
       />
     </div>
   )

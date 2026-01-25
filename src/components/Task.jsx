@@ -1,11 +1,14 @@
 import ButtonDelete from './ButtonDelete'
 
-const Task = ({title}) => {
+const Task = ({title, taskDelete, id}) => {
 
   return (
     <div>
       <span>{title}</span>
-      <ButtonDelete />
+      <ButtonDelete
+        taskDelete={taskDelete}
+        id={id}
+      />
     </div>
   )
 }
