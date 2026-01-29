@@ -1,7 +1,15 @@
+import { memo } from 'react'
 import '../styles/taskList.css'
 import Task from './Task'
 
-const TasksList = ({tasks, taskDelete}) => {
+const TasksList = (props) => {
+  console.log('TasksList')
+
+  const {
+    tasks,
+    taskDelete,
+  } = props
+
   return (
     <ul className="tasksList">
       {tasks.map((task) => (
@@ -15,4 +23,4 @@ const TasksList = ({tasks, taskDelete}) => {
   )
 }
 
-export default TasksList
+export default memo(TasksList)

@@ -1,5 +1,5 @@
 const Input = ({value, onChange, onAddTask}) => {
-
+  console.log("Input")
   return (
     <div className="addTask__form">
       <input

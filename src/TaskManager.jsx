@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import TasksList from './components/TasksList'
 import Timer from './components/Timer'
 import Input from "./components/Input.jsx";
 
 const TaskManager = () => {
+  console.log('TaskManager')
+
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem('task')
     return savedTasks ? JSON.parse(savedTasks) : []
@@ -27,13 +29,13 @@ const TaskManager = () => {
   }
 
   //Удаляем задачу
-  const handleDeleteTask = (id) => {
+  const handleDeleteTask = useCallback((id) => {
     const newTasks = tasks.filter((task) => {
       return task.id !== id
     })
 
     setTasks(newTasks)
-  }
+  }, [tasks])
 
   // Добавляем задачи в localStorage
   useEffect(() => {

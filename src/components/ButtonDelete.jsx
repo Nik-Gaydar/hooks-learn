@@ -1,4 +1,6 @@
 const ButtonDelete = ({taskDelete, id}) => {
+  console.log('ButtonDelete')
+
   return (
     <button
       className="button"

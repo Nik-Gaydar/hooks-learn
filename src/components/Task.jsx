@@ -1,6 +1,7 @@
 import ButtonDelete from './ButtonDelete'
 
 const Task = ({title, taskDelete, id}) => {
+  console.log('Task')
 
   return (
     <div>
