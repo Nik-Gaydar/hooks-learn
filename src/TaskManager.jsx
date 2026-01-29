@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import TasksList from './components/TasksList'
 import Timer from './components/Timer'
 import Input from "./components/Input.jsx";
@@ -13,6 +13,8 @@ const TaskManager = () => {
 
   const [query, setQuery] = useState('')
 
+  const inputRef = useRef(null)
+
   //Добавляем запрос в состояние
   const handleInputChange = (event) => {
     setQuery(event.target.value)
@@ -24,18 +26,15 @@ const TaskManager = () => {
       title: query,
     }
 
+    inputRef.current.focus()
     setTasks([...tasks, newTask])
     setQuery('')
   }
 
   //Удаляем задачу
   const handleDeleteTask = useCallback((id) => {
-    const newTasks = tasks.filter((task) => {
-      return task.id !== id
-    })
-
-    setTasks(newTasks)
-  }, [tasks])
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
+  }, [])
 
   // Добавляем задачи в localStorage
   useEffect(() => {
@@ -49,11 +48,12 @@ const TaskManager = () => {
 
   return (
     <div>
-      <Timer />
+      {/*<Timer />*/}
       <Input
         value={query}
         onChange={handleInputChange}
         onAddTask={handleAddTask}
+        ref={inputRef}
       />
       <TasksList
         tasks={tasks}

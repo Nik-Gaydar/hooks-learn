@@ -1,4 +1,4 @@
-const Input = ({value, onChange, onAddTask}) => {
+const Input = ({value, onChange, onAddTask, ref}) => {
   console.log("Input")
   return (
     <div className="addTask__form">
@@ -7,6 +7,7 @@ const Input = ({value, onChange, onAddTask}) => {
         className="addTask__input"
         onChange={onChange}
         value={value}
+        ref={ref}
       />
       <button
         className="button"
