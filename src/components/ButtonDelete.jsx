@@ -1,10 +1,13 @@
-const ButtonDelete = ({taskDelete, id}) => {
-  console.log('ButtonDelete')
+import { useContext } from 'react'
+import { TasksContext } from '../context/TasksContext'
+
+const ButtonDelete = ({id}) => {
+  const {handleDeleteTask} = useContext(TasksContext)
 
   return (
     <button
       className="button"
-      onClick={() => taskDelete(id)}
+      onClick={() => handleDeleteTask(id)}
     >
       удалить
     </button>

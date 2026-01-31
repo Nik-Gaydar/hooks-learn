@@ -2,10 +2,9 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import TasksList from './components/TasksList'
 import Timer from './components/Timer'
 import Input from "./components/Input.jsx";
+import { TasksContext } from "./context/TasksContext";
 
 const TaskManager = () => {
-  console.log('TaskManager')
-
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem('task')
     return savedTasks ? JSON.parse(savedTasks) : []
@@ -20,6 +19,7 @@ const TaskManager = () => {
     setQuery(event.target.value)
   }
 
+  //Добавляем задачу
   const handleAddTask = () => {
     const newTask = {
       id: Date.now() + Math.random(),
@@ -47,19 +47,29 @@ const TaskManager = () => {
   }, [tasks]);
 
   return (
-    <div>
-      {/*<Timer />*/}
-      <Input
-        value={query}
-        onChange={handleInputChange}
-        onAddTask={handleAddTask}
-        ref={inputRef}
-      />
-      <TasksList
-        tasks={tasks}
-        taskDelete={handleDeleteTask}
-      />
-    </div>
+    <TasksContext.Provider
+      value={{
+        tasks,
+        handleAddTask,
+        handleDeleteTask,
+        handleInputChange,
+        query,
+        inputRef,
+      }}
+    >
+      <div>
+        <Timer />
+        <Input
+          value={query}
+          onChange={handleInputChange}
+          onAddTask={handleAddTask}
+          ref={inputRef}
+        />
+        <TasksList
+          tasks={tasks}
+        />
+      </div>
+    </TasksContext.Provider>
   )
 }
 

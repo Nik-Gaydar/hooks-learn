@@ -1,17 +1,24 @@
-const Input = ({value, onChange, onAddTask, ref}) => {
-  console.log("Input")
+import { useContext} from "react";
+import {TasksContext} from "../context/TasksContext.js";
+
+const Input = ({value}) => {
+  const {
+    handleInputChange,
+    inputRef,
+    handleAddTask,
+  } = useContext(TasksContext)
   return (
     <div className="addTask__form">
       <input
         type="text"
         className="addTask__input"
-        onChange={onChange}
+        onChange={handleInputChange}
         value={value}
-        ref={ref}
+        ref={inputRef}
       />
       <button
         className="button"
-        onClick={onAddTask}
+        onClick={handleAddTask}
       >
         Добавить
       </button>
